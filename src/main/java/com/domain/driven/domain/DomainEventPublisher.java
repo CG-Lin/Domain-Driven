@@ -1,5 +1,6 @@
 package com.domain.driven.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DomainEventPublisher {
@@ -19,7 +20,8 @@ public class DomainEventPublisher {
 
 
     public static DomainEventPublisher instance() {
-        return instance.get();
+        DomainEventPublisher domainEventPublisher = instance.get();
+        return domainEventPublisher;
     }
 
 
@@ -37,6 +39,26 @@ public class DomainEventPublisher {
         this.publishing = flag;
     }
 
+    @SuppressWarnings("rawtypes")
+    private void ensureSubscribersList() {
+        if (!this.hasSubscribers()) {
+            this.setSubscribers(new ArrayList());
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    private void setSubscribers(List subscriberList) {
+        this.subscribers = subscriberList;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) {
+        if (!this.publishing) {
+            this.ensureSubscribersList();
+            this.subscribers().add(aSubscriber);
+        }
+    }
+
     //此处的<T> 表示传入参数有泛型,<T>存在的作用，是为了保证参数中能够出现T这种数据类型
     public <T> void publish(T useDomainEvent) {
         //如果没有正在发布消息同时候订阅列表不为空
@@ -52,7 +74,7 @@ public class DomainEventPublisher {
                 for (DomainEventSubscriber<T> subscriber : allSubscribers) {
                     Class<T> subscribedToType = subscriber.subscribedToEventType();
                     //如果发布的领域事件类型与订阅列表的类型匹配上，则将事件进行处理
-                    if (publishClass == subscribedToType || subscribedToType == DomainEvent.class) {
+                    if (subscribedToType.toString().equals(publishClass.toString()) ) {
                         subscriber.handleEvent(useDomainEvent);
                     }
                 }

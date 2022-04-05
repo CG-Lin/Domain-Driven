@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@Table(name = "order")
 public class Order {
-    @Id
     private Long Id;
     //订单状态
     private Integer OrderState;
