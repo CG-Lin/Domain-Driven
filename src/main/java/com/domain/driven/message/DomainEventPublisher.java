@@ -1,4 +1,4 @@
-package com.domain.driven.domain;
+package com.domain.driven.message;
 
 import java.util.ArrayList;
 import java.util.List;

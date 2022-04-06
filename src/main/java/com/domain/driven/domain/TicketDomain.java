@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public abstract class OrderDomain implements DomainEvent{
+public abstract class TicketDomain implements DomainEvent{
     //补充到聚合根信息中
     private String orderId;
 

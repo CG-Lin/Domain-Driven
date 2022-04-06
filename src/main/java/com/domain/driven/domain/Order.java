@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-
+//单个商品的订单信息
 @Data
 public class Order {
     private Long Id;

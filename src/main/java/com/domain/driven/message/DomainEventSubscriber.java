@@ -1,4 +1,4 @@
-package com.domain.driven.domain;
+package com.domain.driven.message;
 
 public interface DomainEventSubscriber<T> {
 
