@@ -10,11 +10,11 @@ class DrivenApplicationTests {
 
     @Test
     void contextLoads() {
+        //先注册订阅列表，再进行发布
         TicketService ticketService = new TicketService();
         ticketService.saveTicket();
 
         BuyService buyService = new BuyService();
         buyService.reservation();
     }
-
 }
