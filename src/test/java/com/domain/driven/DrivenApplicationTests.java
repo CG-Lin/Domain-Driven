@@ -9,21 +9,24 @@ class DrivenApplicationTests {
 
     @Test
     void contextLoads() {
-        DomainEventPublisher.instance().subscribe(new DomainEventSubscriber<OrderCreateEvent>() {
+        DomainEventPublisher.instance().subscribe(new DomainEventSubscriber<CustomerOrderCreateEvent>() {
 
 
             @Override
-            public void handleEvent(OrderCreateEvent aDomainEvent) {
+            public void handleEvent(CustomerOrderCreateEvent aDomainEvent) {
                 System.out.println("hello world");
             }
 
             @Override
-            public Class<OrderCreateEvent> subscribedToEventType() {
-                return OrderCreateEvent.class;
+            public Class<CustomerOrderCreateEvent> subscribedToEventType() {
+                return CustomerOrderCreateEvent.class;
             }
         });
 
-        DomainEventPublisher.instance().publish(new OrderCreateEvent());
+        Order order = new Order();
+        String address = "M78星云光之国成化大道消防队对面";
+
+        DomainEventPublisher.instance().publish(new CustomerOrderCreateEvent(order,address));
     }
 
 }
