@@ -10,7 +10,7 @@ import java.util.Set;
 public class Ticket {
 
     //所有价格
-    private BigDecimal allPrice;
+    private BigDecimal realAmount;
     //优惠
     private BigDecimal discounts;
     private Set<Order> orders;
