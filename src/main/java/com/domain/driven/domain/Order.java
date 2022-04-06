@@ -2,9 +2,6 @@ package com.domain.driven.domain;
 
 import lombok.Data;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
