@@ -30,20 +30,9 @@ public class DomainEventPublisher {
         return this.subscribers;
     }
 
-    @SuppressWarnings("rawtypes")
-    public boolean hasSubscribers() {
-        return subscribers() != null;
-    }
     //设置发布状态
     private void setPublishing(boolean flag) {
         this.publishing = flag;
-    }
-
-    @SuppressWarnings("rawtypes")
-    private void ensureSubscribersList() {
-        if (!this.hasSubscribers()) {
-            this.setSubscribers(new ArrayList());
-        }
     }
 
     @SuppressWarnings("rawtypes")
@@ -51,6 +40,21 @@ public class DomainEventPublisher {
         this.subscribers = subscriberList;
     }
 
+    //查看当前是否有订阅集合
+    @SuppressWarnings("rawtypes")
+    public boolean hasSubscribers() {
+        return subscribers() != null;
+    }
+
+    //如果当前订阅集合为空则创建一个新的集合
+    @SuppressWarnings("rawtypes")
+    private void ensureSubscribersList() {
+        if (!this.hasSubscribers()) {
+            this.setSubscribers(new ArrayList());
+        }
+    }
+
+    //如果当前没有在进行发布，则进行订阅集合判断后将新的订阅者加入集合列表
     @SuppressWarnings("unchecked")
     public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) {
         if (!this.publishing) {
@@ -65,15 +69,15 @@ public class DomainEventPublisher {
         if (!this.publishing && hasSubscribers()) {
             try {
                 this.setPublishing(true);
-
+                //获取当前正在发布消息的领域事件类名
                 Class<?> publishClass = useDomainEvent.getClass();
-
+                //获取当前所有订阅者
                 List<DomainEventSubscriber<T>> allSubscribers = this.subscribers();
-
-                //遍历所有订阅列表
+                //遍历所有订阅者列表
                 for (DomainEventSubscriber<T> subscriber : allSubscribers) {
+                    //返回对应的领域事件类
                     Class<T> subscribedToType = subscriber.subscribedToEventType();
-                    //如果发布的领域事件类型与订阅列表的类型匹配上，则将事件进行处理
+                    //如果发布的领域事件类型与订阅列表的类型匹配上，则将事件交给对应的处理器进行处理
                     if (subscribedToType.toString().equals(publishClass.toString()) ) {
                         subscriber.handleEvent(useDomainEvent);
                     }
@@ -84,9 +88,4 @@ public class DomainEventPublisher {
             }
         }
     }
-
-
-
-
-    //
 }
