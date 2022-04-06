@@ -4,7 +4,7 @@ import com.domain.driven.domain.CustomerTicketCreateEvent;
 import com.domain.driven.entity.Ticket;
 import com.domain.driven.message.DomainEventPublisher;
 
-//类似Service
+//模拟MVC三层模型中的Service
 //我们在这里做一个业务假设，例如预约购买，一旦某件商品上线，就通知我们自动创建订单进行支付
 public class BuyService {
     //预定服务，定时任务到了，我发布创建订单的事件
