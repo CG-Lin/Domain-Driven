@@ -1,9 +1,8 @@
 package com.domain.driven.service;
 
 import com.domain.driven.domain.CustomerTicketCreateEvent;
-import com.domain.driven.domain.Ticket;
+import com.domain.driven.entity.Ticket;
 import com.domain.driven.message.DomainEventPublisher;
-import com.domain.driven.message.DomainEventSubscriber;
 
 //类似Service
 //我们在这里做一个业务假设，例如预约购买，一旦某件商品上线，就通知我们自动创建订单进行支付

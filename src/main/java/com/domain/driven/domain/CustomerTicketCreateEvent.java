@@ -1,5 +1,6 @@
 package com.domain.driven.domain;
 
+import com.domain.driven.entity.Ticket;
 import lombok.Data;
 
 //在订单创建时可以根据现实需求补充上下文信息,如果没有为空就可以
